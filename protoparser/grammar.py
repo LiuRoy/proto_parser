@@ -30,7 +30,16 @@ def p_header_unit(p):
 
 
 def p_syntax(p):
-    """syntax : SYNTAX IDENTIFIER"""
+    """syntax : SYNTAX '=' IDENTIFIER"""
+
+
+def p_package(p):
+    """package : PACKAGE dot_identifier"""
+
+
+def dot_identifier(p):
+    """dot_identifier : IDENTIFIER '.' dot_identifier
+                      | IDENTIFIER"""
 
 
 def p_sep(p):
