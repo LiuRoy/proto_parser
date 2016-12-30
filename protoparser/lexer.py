@@ -5,7 +5,7 @@ from protoparser.exc import ProtoLexerError
 
 literals = '.;,={}<>[]()'
 
-# import package reserved option oneof等暂不支持
+# import reserved option oneof等暂不支持
 keywords = (
     'syntax',
     'package',
@@ -122,19 +122,3 @@ def t_IDENTIFIER(t):
     if t.value in keywords:
         t.type = t.value.upper()
     return t
-
-
-if __name__ == '__main__':
-    from ply import lex
-    lexer = lex.lex()
-
-    with open('../example/stringdb.proto', 'r') as f:
-        input_data = f.read()
-
-        lexer.input(input_data)
-        while True:
-            token = lexer.token()
-            if not token:
-                break
-
-            print token
