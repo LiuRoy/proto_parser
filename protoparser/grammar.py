@@ -34,15 +34,20 @@ def p_syntax(p):
 
 
 def p_package(p):
-    """package : PACKAGE dot_identifier"""
+    """package : PACKAGE IDENTIFIER"""
 
 
-def dot_identifier(p):
-    """dot_identifier : IDENTIFIER '.' dot_identifier
-                      | IDENTIFIER"""
+def p_definition(p):
+    """definition : definition definition_unit_
+                  |"""
 
 
-def p_sep(p):
-    """sep : ','
-           | ';'
-    """
+def p_definition_unit_(p):
+    """definition_unit_ : definition_unit ';'
+                        | definition_unit"""
+
+
+def p_definition_unit(p):
+    """definition_unit : service
+                       | enum
+                       | message"""
