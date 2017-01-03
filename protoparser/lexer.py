@@ -5,14 +5,14 @@ from protoparser.exc import ProtoLexerError
 
 literals = '.;,={}<>[]()'
 
-# import reserved option oneof等暂不支持
+# enum packed singular import reserved option oneof等暂不支持
 keywords = (
     'syntax',
     'package',
     'message',
+    'required',
+    'optional',
     'repeated',
-    'packed',
-    'singular',
     'double',
     'float',
     'int32',
@@ -28,7 +28,6 @@ keywords = (
     'bool',
     'string',
     'bytes',
-    'enum',
     'map',
     'service',
     'rpc',
@@ -36,9 +35,7 @@ keywords = (
 )
 
 tokens = (
-    'BOOLCONSTANT',
     'INTCONSTANT',
-    'DUBCONSTANT',
     'LITERAL',
     'IDENTIFIER',
 ) + tuple(map(lambda kw: kw.upper(), keywords))
@@ -58,18 +55,6 @@ def t_newline(t):
 
 def t_ignore_COMMENT(t):
     r'\/\/[^\n]*'
-
-
-def t_BOOLCONSTANT(t):
-    r'\btrue\b|\bfalse\b'
-    t.value = t.value == 'true'
-    return t
-
-
-def t_DUBCONSTANT(t):
-    r'-?\d+\.\d*(e-?\d+)?'
-    t.value = float(t.value)
-    return t
 
 
 def t_HEXCONSTANT(t):
