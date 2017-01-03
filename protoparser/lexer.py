@@ -10,7 +10,6 @@ keywords = (
     'syntax',
     'package',
     'message',
-    'required',
     'optional',
     'repeated',
     'double',

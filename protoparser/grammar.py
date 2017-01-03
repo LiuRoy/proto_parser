@@ -30,7 +30,7 @@ def p_header_unit(p):
 
 
 def p_syntax(p):
-    """syntax : SYNTAX '=' IDENTIFIER"""
+    """syntax : SYNTAX '=' LITERAL"""
 
 
 def p_package(p):
@@ -70,8 +70,7 @@ def p_field(p):
 
 
 def p_field_req(p):
-    """field_req : REQUIRED
-                 | OPTIONAL
+    """field_req : OPTIONAL
                  | REPEATED
                  |"""
 
@@ -113,7 +112,8 @@ def p_container_type(p):
 
 
 def p_map_type(p):
-    """map_type: MAP '<' field_type ',' field_type '>'"""
+    """map_type: MAP '<' base_type ',' base_type '>'
+               | MAP '<' base_type ',' ref_type '>'"""
 
 
 def p_service(p):
