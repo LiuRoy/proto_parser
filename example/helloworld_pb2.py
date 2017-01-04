@@ -17,26 +17,33 @@ _sym_db = _symbol_database.Default()
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='helloworld.proto',
-  package='helloworld',
+  package='hello_world',
   syntax='proto3',
-  serialized_pb=_b('\n\x10helloworld.proto\x12\nhelloworld\"#\n\x0cHelloRequest\x12\x13\n\x0bname_double\x18\x01 \x03(\t\"\x1d\n\nHelloReply\x12\x0f\n\x07message\x18\x01 \x01(\t2I\n\x07Greeter\x12>\n\x08SayHello\x12\x18.helloworld.HelloRequest\x1a\x16.helloworld.HelloReply\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x10helloworld.proto\x12\x0bhello_world\"\x87\x01\n\x0cHelloRequest\x12\x31\n\x04name\x18\x03 \x03(\x0b\x32#.hello_world.HelloRequest.NameEntry\x1a\x44\n\tNameEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12&\n\x05value\x18\x02 \x01(\x0b\x32\x17.hello_world.HelloReply:\x02\x38\x01\"\x1d\n\nHelloReply\x12\x0f\n\x07message\x18\x01 \x01(\t2K\n\x07Greeter\x12@\n\x08SayHello\x12\x19.hello_world.HelloRequest\x1a\x17.hello_world.HelloReply\"\x00\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
 
-_HELLOREQUEST = _descriptor.Descriptor(
-  name='HelloRequest',
-  full_name='helloworld.HelloRequest',
+_HELLOREQUEST_NAMEENTRY = _descriptor.Descriptor(
+  name='NameEntry',
+  full_name='hello_world.HelloRequest.NameEntry',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='name_double', full_name='helloworld.HelloRequest.name_double', index=0,
-      number=1, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
+      name='key', full_name='hello_world.HelloRequest.NameEntry.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='hello_world.HelloRequest.NameEntry.value', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -46,26 +53,56 @@ _HELLOREQUEST = _descriptor.Descriptor(
   nested_types=[],
   enum_types=[
   ],
+  options=_descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001')),
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=101,
+  serialized_end=169,
+)
+
+_HELLOREQUEST = _descriptor.Descriptor(
+  name='HelloRequest',
+  full_name='hello_world.HelloRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='hello_world.HelloRequest.name', index=0,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[_HELLOREQUEST_NAMEENTRY, ],
+  enum_types=[
+  ],
   options=None,
   is_extendable=False,
   syntax='proto3',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=32,
-  serialized_end=67,
+  serialized_start=34,
+  serialized_end=169,
 )
 
 
 _HELLOREPLY = _descriptor.Descriptor(
   name='HelloReply',
-  full_name='helloworld.HelloReply',
+  full_name='hello_world.HelloReply',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='message', full_name='helloworld.HelloReply.message', index=0,
+      name='message', full_name='hello_world.HelloReply.message', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -83,23 +120,158 @@ _HELLOREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=69,
-  serialized_end=98,
+  serialized_start=171,
+  serialized_end=200,
 )
 
+_HELLOREQUEST_NAMEENTRY.fields_by_name['value'].message_type = _HELLOREPLY
+_HELLOREQUEST_NAMEENTRY.containing_type = _HELLOREQUEST
+_HELLOREQUEST.fields_by_name['name'].message_type = _HELLOREQUEST_NAMEENTRY
 DESCRIPTOR.message_types_by_name['HelloRequest'] = _HELLOREQUEST
 DESCRIPTOR.message_types_by_name['HelloReply'] = _HELLOREPLY
 
 HelloRequest = _reflection.GeneratedProtocolMessageType('HelloRequest', (_message.Message,), dict(
+
+  NameEntry = _reflection.GeneratedProtocolMessageType('NameEntry', (_message.Message,), dict(
+    DESCRIPTOR = _HELLOREQUEST_NAMEENTRY,
+    __module__ = 'helloworld_pb2'
+    # @@protoc_insertion_point(class_scope:hello_world.HelloRequest.NameEntry)
+    ))
+  ,
   DESCRIPTOR = _HELLOREQUEST,
   __module__ = 'helloworld_pb2'
-  # @@protoc_insertion_point(class_scope:helloworld.HelloRequest)
+  # @@protoc_insertion_point(class_scope:hello_world.HelloRequest)
   ))
 _sym_db.RegisterMessage(HelloRequest)
+_sym_db.RegisterMessage(HelloRequest.NameEntry)
 
 HelloReply = _reflection.GeneratedProtocolMessageType('HelloReply', (_message.Message,), dict(
   DESCRIPTOR = _HELLOREPLY,
   __module__ = 'helloworld_pb2'
-  # @@protoc_insertion_point(class_scope:helloworld.HelloReply)
+  # @@protoc_insertion_point(class_scope:hello_world.HelloReply)
   ))
 _sym_db.RegisterMessage(HelloReply)
+
+
+_HELLOREQUEST_NAMEENTRY.has_options = True
+_HELLOREQUEST_NAMEENTRY._options = _descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001'))
+try:
+  # THESE ELEMENTS WILL BE DEPRECATED.
+  # Please use the generated *_pb2_grpc.py files instead.
+  import grpc
+  from grpc.framework.common import cardinality
+  from grpc.framework.interfaces.face import utilities as face_utilities
+  from grpc.beta import implementations as beta_implementations
+  from grpc.beta import interfaces as beta_interfaces
+
+
+  class GreeterStub(object):
+    """The greeting service definition.
+    """
+
+    def __init__(self, channel):
+      """Constructor.
+
+      Args:
+        channel: A grpc.Channel.
+      """
+      self.SayHello = channel.unary_unary(
+          '/hello_world.Greeter/SayHello',
+          request_serializer=HelloRequest.SerializeToString,
+          response_deserializer=HelloReply.FromString,
+          )
+
+
+  class GreeterServicer(object):
+    """The greeting service definition.
+    """
+
+    def SayHello(self, request, context):
+      """Sends a greeting
+      """
+      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+      context.set_details('Method not implemented!')
+      raise NotImplementedError('Method not implemented!')
+
+
+  def add_GreeterServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+        'SayHello': grpc.unary_unary_rpc_method_handler(
+            servicer.SayHello,
+            request_deserializer=HelloRequest.FromString,
+            response_serializer=HelloReply.SerializeToString,
+        ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+        'hello_world.Greeter', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
+
+
+  class BetaGreeterServicer(object):
+    """The Beta API is deprecated for 0.15.0 and later.
+
+    It is recommended to use the GA API (classes and functions in this
+    file not marked beta) for all further purposes. This class was generated
+    only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0."""
+    """The greeting service definition.
+    """
+    def SayHello(self, request, context):
+      """Sends a greeting
+      """
+      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
+
+
+  class BetaGreeterStub(object):
+    """The Beta API is deprecated for 0.15.0 and later.
+
+    It is recommended to use the GA API (classes and functions in this
+    file not marked beta) for all further purposes. This class was generated
+    only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0."""
+    """The greeting service definition.
+    """
+    def SayHello(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
+      """Sends a greeting
+      """
+      raise NotImplementedError()
+    SayHello.future = None
+
+
+  def beta_create_Greeter_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
+    """The Beta API is deprecated for 0.15.0 and later.
+
+    It is recommended to use the GA API (classes and functions in this
+    file not marked beta) for all further purposes. This function was
+    generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
+    request_deserializers = {
+      ('hello_world.Greeter', 'SayHello'): HelloRequest.FromString,
+    }
+    response_serializers = {
+      ('hello_world.Greeter', 'SayHello'): HelloReply.SerializeToString,
+    }
+    method_implementations = {
+      ('hello_world.Greeter', 'SayHello'): face_utilities.unary_unary_inline(servicer.SayHello),
+    }
+    server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
+    return beta_implementations.server(method_implementations, options=server_options)
+
+
+  def beta_create_Greeter_stub(channel, host=None, metadata_transformer=None, pool=None, pool_size=None):
+    """The Beta API is deprecated for 0.15.0 and later.
+
+    It is recommended to use the GA API (classes and functions in this
+    file not marked beta) for all further purposes. This function was
+    generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
+    request_serializers = {
+      ('hello_world.Greeter', 'SayHello'): HelloRequest.SerializeToString,
+    }
+    response_deserializers = {
+      ('hello_world.Greeter', 'SayHello'): HelloReply.FromString,
+    }
+    cardinalities = {
+      'SayHello': cardinality.Cardinality.UNARY_UNARY,
+    }
+    stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
+    return beta_implementations.dynamic_stub(channel, 'hello_world.Greeter', cardinalities, options=stub_options)
+except ImportError:
+  pass
+# @@protoc_insertion_point(module_scope)

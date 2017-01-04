@@ -29,11 +29,11 @@
 
 syntax = "proto3";
 
-package helloworld;
+package hello_world;
 
 // The request message containing the user's name.
 message HelloRequest {
-    repeated string name_double = 1;
+    map<string, HelloReply> name = 3;
 }
 
 // The response message containing the greetings
