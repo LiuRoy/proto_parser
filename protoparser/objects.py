@@ -171,14 +171,14 @@ class Service(object):
     """service"""
     def __init__(self, name, methods=None):
         self.name = name
-        self.methods = methods or []
+        self.methods = methods or {}
 
 
 class Message(object):
     """message"""
     def __init__(self, name, fields=None):
         self.name = name
-        self.fields = fields or []
+        self.fields = fields or {}
 
 
 class Protobuf(object):
@@ -188,6 +188,6 @@ class Protobuf(object):
         self.package = package
         self.syntax = syntax
 
-        self.services = []
-        self.messages = []
+        self.services = {}
+        self.messages = {}
         self.filename = None

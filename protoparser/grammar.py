@@ -28,7 +28,7 @@ class HeaderType(object):
 def p_error(p):
     if p is None:
         raise ProtoGrammarError('grammar error at EOF')
-    raise ProtoGrammarError('grammar error {} at line {}'.format(
+    raise ProtoGrammarError('grammar error: {} at line {}'.format(
         p.value, p.lineno))
 
 
@@ -42,12 +42,22 @@ def p_start(p):
             package = item[1]
 
     proto = Protobuf(package, syntax)
+    symbols = set()
     for item in p[2]:
-        if isinstance(item, Service):
-            proto.services.append(item)
-        elif isinstance(item, Message):
-            proto.messages.append(item)
+        item_name = item.name
+        if item_name in symbols:
+            raise ProtoGrammarError(
+                'grammar error: symbol {} is already defined at line {}'.format(
+                    item_name, p.lineno))
 
+        if isinstance(item, Service):
+            proto.services[item_name] = item
+        elif isinstance(item, Message):
+            proto.messages[item_name] = item
+        symbols.add(item_name)
+
+    _check_methods(proto)
+    _update_fields(proto)
     p[0] = proto
 
 
@@ -57,7 +67,7 @@ def p_header(p):
     if len(p) == 1:
         p[0] = []
     else:
-        p[0] = [p[1]] + p[3]
+        p[0] = [p[1]] + p[2]
 
 
 def p_header_unit_(p):
@@ -91,7 +101,7 @@ def p_definition(p):
     if len(p) == 1:
         p[0] = []
     else:
-        p[0] = [p[2]] + p[0]
+        p[0] = [p[2]] + p[1]
 
 
 def p_definition_unit_(p):
@@ -111,6 +121,11 @@ def p_message(p):
     message = Message(p[1])
     for index, field in enumerate(p[3]):
         optional, type_, name, number = field
+
+        if name in message.fields:
+            raise ProtoGrammarError(
+                'grammar error: message {} is already defined at line {}'.format(
+                    name, p.lineno))
 
         label = 1
         if optional == 'repeated':
@@ -133,7 +148,7 @@ def p_message(p):
         else:
             field = MessageField(name, index, number, label,
                                  message_type=type_[1])
-        message.fields.append(field)
+        message.fields[name] = field
 
     p[0] = message
 
@@ -209,7 +224,7 @@ def p_container_type(p):
 
 
 def p_map_type(p):
-    """map_type: MAP '<' base_type ',' base_type '>'
+    """map_type : MAP '<' base_type ',' base_type '>'
                | MAP '<' base_type ',' ref_type '>'"""
     if p[3] == 'bytes':
         raise ProtoGrammarError(
@@ -221,7 +236,12 @@ def p_service(p):
     """service : SERVICE IDENTIFIER '{' func_seq '}'"""
     service = Service(p[2])
     for method in p[4]:
-        service.methods.append(method)
+        if method.name in service.methods:
+            raise ProtoGrammarError(
+                'grammar error: method {} is already defined at line {}'.format(
+                    method.name, p.lineno))
+        service.methods[method.name] = method
+    p[0] = service
 
 
 def p_func_seq(p):
@@ -231,7 +251,7 @@ def p_func_seq(p):
     p_len = len(p)
     if p_len == 1:
         p[0] = []
-    elif p_len == 2:
+    elif p_len == 3:
         p[0] = [p[1]] + p[2]
     else:
         p[0] = [p[1]] + p[3]
@@ -240,3 +260,51 @@ def p_func_seq(p):
 def p_func(p):
     """func : RPC IDENTIFIER '(' IDENTIFIER ')' RETURNS '(' IDENTIFIER ')' '{' '}'"""
     p[0] = ServiceMethod(p[2], p[4], p[8])
+
+
+def _check_methods(proto):
+    """检查serivce中定义方法的传参能否解析
+
+    Args:
+        proto (Protobuf): 解析得到的对象
+    """
+    for _, service in proto.services.iteritems():
+        for method_name, method in service.methods.iteritems():
+            if method.request_type in proto.messages and \
+                            method.response_type in proto.messages:
+                continue
+            raise ProtoGrammarError(
+                'grammar error: {} params not defined'.format(method_name,))
+
+
+def _update_fields(proto):
+    """更新map中的自定义类型以及检查嵌套message类型是否存在
+
+    Args:
+        proto (Protobuf): 解析得到的对象
+    """
+    for _, message in proto.messages.iteritems():
+        for field_name, field in message.fields.iteritems():
+            if isinstance(field, MessageField):
+                if field_name not in proto.messages:
+                    raise ProtoGrammarError(
+                        'grammar error: {} not defined'.format(field_name))
+
+                field.message_type = proto.messages[field_name]
+            elif isinstance(field, MapField):
+                key_type, key_name = field.key_type
+                val_type, val_name = field.value_type
+
+                if val_type == FieldType.REF:
+                    if val_name not in proto.messages:
+                        raise ProtoGrammarError(
+                            'grammar error: {} not defined'.format(field_name))
+
+                    field.value_type = MessageField(
+                        val_name, 1, 1, 1, proto.messages[val_name])
+                else:
+                    class_ = field_map[val_name]
+                    field.value_type = class_('value', 1, 1, 1)
+
+                class_ = field_map[key_name]
+                field.key_type = class_('key', 0, 0, 1)

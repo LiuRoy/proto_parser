@@ -38,7 +38,7 @@ message HelloRequest {
 
 // The response message containing the greetings
 message HelloReply {
-    string message = 1;
+    string name = 1;
 }
 
 // The greeting service definition.
