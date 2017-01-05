@@ -19,7 +19,6 @@ import grpc
 from protoparser import make_client
 
 client = make_client('./helloworld.proto')
-![Uploading protoparser1_151005.png . . .]
 
 channel = grpc.insecure_channel('localhost:50051')
 stub = client.GreeterStub(channel)
