@@ -33,7 +33,7 @@ package hello_world;
 
 // The request message containing the user's name.
 message HelloRequest {
-    map<string, HelloReply> name = 3;
+    string name = 1;
 }
 
 // The response message containing the greetings

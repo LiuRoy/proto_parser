@@ -1,6 +1,6 @@
 # proto_parser
 
-a python parser for proto buffer file
+a python compiler for protobuf
 
 http://www.grpc.io/docs/quickstart/python.html
 

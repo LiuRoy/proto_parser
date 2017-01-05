@@ -19,49 +19,12 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='helloworld.proto',
   package='hello_world',
   syntax='proto3',
-  serialized_pb=_b('\n\x10helloworld.proto\x12\x0bhello_world\"\x87\x01\n\x0cHelloRequest\x12\x31\n\x04name\x18\x03 \x03(\x0b\x32#.hello_world.HelloRequest.NameEntry\x1a\x44\n\tNameEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12&\n\x05value\x18\x02 \x01(\x0b\x32\x17.hello_world.HelloReply:\x02\x38\x01\"\x1d\n\nHelloReply\x12\x0f\n\x07message\x18\x01 \x01(\t2K\n\x07Greeter\x12@\n\x08SayHello\x12\x19.hello_world.HelloRequest\x1a\x17.hello_world.HelloReply\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x10helloworld.proto\x12\x0bhello_world\":\n\x0cHelloRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05name2\x18\x02 \x01(\t\x12\r\n\x05name3\x18\x03 \x01(\t\"\x1a\n\nHelloReply\x12\x0c\n\x04name\x18\x01 \x01(\t2K\n\x07Greeter\x12@\n\x08SayHello\x12\x19.hello_world.HelloRequest\x1a\x17.hello_world.HelloReply\"\x00\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
-
-_HELLOREQUEST_NAMEENTRY = _descriptor.Descriptor(
-  name='NameEntry',
-  full_name='hello_world.HelloRequest.NameEntry',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='key', full_name='hello_world.HelloRequest.NameEntry.key', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='value', full_name='hello_world.HelloRequest.NameEntry.value', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=_descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001')),
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=101,
-  serialized_end=169,
-)
 
 _HELLOREQUEST = _descriptor.Descriptor(
   name='HelloRequest',
@@ -72,15 +35,29 @@ _HELLOREQUEST = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='name', full_name='hello_world.HelloRequest.name', index=0,
-      number=3, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='name2', full_name='hello_world.HelloRequest.name2', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='name3', full_name='hello_world.HelloRequest.name3', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
   ],
   extensions=[
   ],
-  nested_types=[_HELLOREQUEST_NAMEENTRY, ],
+  nested_types=[],
   enum_types=[
   ],
   options=None,
@@ -89,8 +66,8 @@ _HELLOREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=34,
-  serialized_end=169,
+  serialized_start=33,
+  serialized_end=91,
 )
 
 
@@ -102,7 +79,7 @@ _HELLOREPLY = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='message', full_name='hello_world.HelloReply.message', index=0,
+      name='name', full_name='hello_world.HelloReply.name', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -120,30 +97,19 @@ _HELLOREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=171,
-  serialized_end=200,
+  serialized_start=93,
+  serialized_end=119,
 )
 
-_HELLOREQUEST_NAMEENTRY.fields_by_name['value'].message_type = _HELLOREPLY
-_HELLOREQUEST_NAMEENTRY.containing_type = _HELLOREQUEST
-_HELLOREQUEST.fields_by_name['name'].message_type = _HELLOREQUEST_NAMEENTRY
 DESCRIPTOR.message_types_by_name['HelloRequest'] = _HELLOREQUEST
 DESCRIPTOR.message_types_by_name['HelloReply'] = _HELLOREPLY
 
 HelloRequest = _reflection.GeneratedProtocolMessageType('HelloRequest', (_message.Message,), dict(
-
-  NameEntry = _reflection.GeneratedProtocolMessageType('NameEntry', (_message.Message,), dict(
-    DESCRIPTOR = _HELLOREQUEST_NAMEENTRY,
-    __module__ = 'helloworld_pb2'
-    # @@protoc_insertion_point(class_scope:hello_world.HelloRequest.NameEntry)
-    ))
-  ,
   DESCRIPTOR = _HELLOREQUEST,
   __module__ = 'helloworld_pb2'
   # @@protoc_insertion_point(class_scope:hello_world.HelloRequest)
   ))
 _sym_db.RegisterMessage(HelloRequest)
-_sym_db.RegisterMessage(HelloRequest.NameEntry)
 
 HelloReply = _reflection.GeneratedProtocolMessageType('HelloReply', (_message.Message,), dict(
   DESCRIPTOR = _HELLOREPLY,
@@ -153,8 +119,6 @@ HelloReply = _reflection.GeneratedProtocolMessageType('HelloReply', (_message.Me
 _sym_db.RegisterMessage(HelloReply)
 
 
-_HELLOREQUEST_NAMEENTRY.has_options = True
-_HELLOREQUEST_NAMEENTRY._options = _descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001'))
 try:
   # THESE ELEMENTS WILL BE DEPRECATED.
   # Please use the generated *_pb2_grpc.py files instead.
